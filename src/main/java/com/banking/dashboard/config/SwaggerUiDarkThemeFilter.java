@@ -16,14 +16,15 @@ import java.nio.charset.StandardCharsets;
  *
  * <p>Swagger UI is served from the springdoc/webjar bundle, so its
  * {@code index.html} cannot be edited directly. This filter rewrites the served
- * HTML on the fly, adding a {@code <link>} to {@code /css/swagger-dark-theme.css}
- * before {@code </head>}.
+ * HTML on the fly, adding the dark-theme stylesheet plus a small script that
+ * renders a dark/light toggle button in the topbar, before {@code </head>}.
  */
 @Component
 public class SwaggerUiDarkThemeFilter extends OncePerRequestFilter {
 
     private static final String DARK_THEME_LINK =
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/swagger-dark-theme.css\" />\n  </head>";
+            "<link id=\"swagger-dark-theme\" rel=\"stylesheet\" type=\"text/css\" href=\"/css/swagger-dark-theme.css\" />\n"
+            + "    <script src=\"/js/swagger-theme-toggle.js\"></script>\n  </head>";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
